@@ -1,0 +1,37 @@
+{
+	"name": "vote-app",
+	"version": "0.1.0",
+	"description": "A short description of your bundle",
+	"keywords": [
+	],
+	"maintainers": [{
+			"name": "Neil Peterson",
+			"email": "nepeters@microsoft.com"
+		}
+	],
+	"invocationImages": {
+		"cnab": {
+			"name": "cnab",
+			"builder": "docker",
+			"configuration": {
+				"registry": "neilpeterson"
+			}
+		}
+	},
+	"parameters": {
+    },
+	"credentials": {
+		"azureclientid": {
+			"env": "ARM_CLIENT_ID"
+		},
+        "azureclientsecret": {
+			"env": "ARM_CLIENT_SECRET"
+		},
+        "azuretenantid": {
+			"env": "ARM_TENANT_ID"
+		},
+		"subscriptionid": {
+			"env": "ARM_SUBSCRIPTION_ID"
+		}
+	}
+}

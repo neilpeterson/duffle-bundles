@@ -1,0 +1,31 @@
+#!/bin/sh
+
+set -e
+
+tfdir=cnab/app/configs
+
+cd $tfdir
+terraform init
+
+case $CNAB_ACTION in
+    install)
+        echo "Running Duffle bundle:" $CNAB_INSTALLATION_NAME
+        terraform apply -auto-approve -input=false
+        ;;
+    uninstall)
+        echo "Uninstalling Duffle bundle:" $CNAB_INSTALLATION_NAME
+        terraform destroy -auto-approve
+        ;;
+    upgrade)
+        echo "Upgrade action"
+        terraform apply -auto-approve -input=false
+        ;;
+    status)
+        echo "Status action"
+        terraform plan
+        ;;
+    *)
+    echo "No action for $action"
+    ;;
+esac
+echo "Action $action complete for $CNAB_INSTALLATION_NAME"
