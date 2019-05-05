@@ -13,16 +13,21 @@ if az storage account show -n "${TF_BACKEND_NAME}" -g "${TF_BACKEND_RG}" &> /dev
         echo -e "Duffle Log: Backend blob container found"
         echo -e "Duffle Log: Creating Terraform backend configuration"
     else
-        echo -e "Duffle Log: Creating blob for Terraform backend "
+        echo -e "Duffle Log: Backend blob container not found"
+        echo -e "Duffle Log: Creating blob for Terraform backend"
         STORAGE_KEY=$(az storage account keys list --account-name $TF_BACKEND_NAME --query [0].value -o tsv)
         az storage container create --name $CNAB_INSTALLATION_NAME --account-name $TF_BACKEND_NAME --account-key $STORAGE_KEY > /dev/null
     fi
 
 else
-    echo -e "Duffle Log: Terraform backend storage account not found."
+    echo -e "Duffle Log: Terraform backend storage account not found"
 
-    echo -e "Duffle Log: Creating resource group for Terraform backend"
-    az group create --name $TF_BACKEND_RG --location $TF_BACKEND_RG_LOCATION > /dev/null
+    if az group show --name $TF_BACKEND_RG &> /dev/null; then
+        echo -e "Duffle Log: Storage resource group found"
+    else
+        echo -e "Duffle Log: Creating resource group for Terraform backend"
+        az group create --name $TF_BACKEND_RG --location $TF_BACKEND_RG_LOCATION > /dev/null
+    fi
 
     echo -e "Duffle Log: Creating storage account for Terraform backend"
     az storage account create --resource-group $TF_BACKEND_RG --name $TF_BACKEND_NAME --sku Standard_LRS --encryption-services blob > /dev/null
@@ -33,3 +38,18 @@ else
     echo -e "Duffle Log: Creating storage blob for Terraform backend"
     az storage container create --name $CNAB_INSTALLATION_NAME --account-name $TF_BACKEND_NAME --account-key $ACCOUNT_KEY > /dev/null
 fi
+
+echo -e "Duffle Log: Creating storage backend Terraform configuration file"
+
+STORAGE_KEY=$(az storage account keys list --account-name $TF_BACKEND_NAME --query [0].value -o tsv)
+
+cat << EOF > /cnab/app/configs/backend.tf
+    terraform {
+        backend "azurerm" {
+            storage_account_name  = "$TF_BACKEND_NAME"
+            container_name        = "$CNAB_INSTALLATION_NAME"
+            key                   = "terraform.tfstate"
+            access_key            = "$STORAGE_KEY"
+        }
+    }
+EOF

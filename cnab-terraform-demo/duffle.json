@@ -20,14 +20,14 @@
 	},
 	"parameters": {
         "backend-name": {
-            "defaultValue": "terraformbackend007",
+            "defaultValue": "terraformbackend",
             "type": "string",
             "destination": {
                 "env": "TF_BACKEND_NAME"
             }
 		},
 		"backend-rg": {
-            "defaultValue": "terraform-backend",
+            "defaultValue": "terraform-backends",
             "type": "string",
             "destination": {
                 "env": "TF_BACKEND_RG"
