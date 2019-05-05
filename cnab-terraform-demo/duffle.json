@@ -19,6 +19,27 @@
 		}
 	},
 	"parameters": {
+        "backend-name": {
+            "defaultValue": "terraformbackend",
+            "type": "string",
+            "destination": {
+                "env": "TF_BACKEND_NAME"
+            }
+		},
+		"backend-rg": {
+            "defaultValue": "terraform-backends",
+            "type": "string",
+            "destination": {
+                "env": "TF_BACKEND_RG"
+            }
+		},
+		"backend-name-rg-location": {
+            "defaultValue": "eastus",
+            "type": "string",
+            "destination": {
+                "env": "TF_BACKEND_RG_LOCATION"
+            }
+		}
     },
 	"credentials": {
 		"azureclientid": {

@@ -1,8 +1,10 @@
-#!/bin/sh
-
+#!/bin/bash
 set -e
 
 tfdir=cnab/app/configs
+
+# Initialize Terraform Backend
+source cnab/app/init-backend
 
 cd $tfdir
 terraform init
