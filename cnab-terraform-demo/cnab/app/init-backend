@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+TF_BACKEND_NAME=$TF_BACKEND_NAME$RANDOM
+
 echo -e "Duffle Log: Log into Azure"
 az login --service-principal -u $ARM_CLIENT_ID -p $ARM_CLIENT_SECRET --tenant $ARM_TENANT_ID > /dev/null
 

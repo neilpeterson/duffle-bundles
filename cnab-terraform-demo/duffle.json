@@ -20,7 +20,7 @@
 	},
 	"parameters": {
         "backend-name": {
-            "defaultValue": "terraformbackend",
+            "defaultValue": "prodback",
             "type": "string",
             "destination": {
                 "env": "TF_BACKEND_NAME"
