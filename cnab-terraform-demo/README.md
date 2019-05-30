@@ -11,19 +11,19 @@
 ## Install multiple instances
 
 ```
-duffle install --credentials=azure --set backend-name=terraformtestbackend test-demo-one cnab-terraform-demo:0.1.0
+duffle install --credentials=azure --set backend-name=testback test-demo-one cnab-terraform-demo:0.1.0
 ```
 
 ```
-duffle install --credentials=azure --set backend-name=terraformtestbackend test-demo-two cnab-terraform-demo:0.1.0
+duffle install --credentials=azure --set backend-name=testback test-demo-two cnab-terraform-demo:0.1.0
 ```
 
 ```
-duffle install --credentials=azure --set backend-name=terraformprodbackend prod-demo-one cnab-terraform-demo:0.1.0
+duffle install --credentials=azure --set backend-name=prodback prod-demo-one cnab-terraform-demo:0.1.0
 ```
 
 ```
-duffle install --credentials=azure --set backend-name=terraformprodbackend prod-demo-two cnab-terraform-demo:0.1.0
+duffle install --credentials=azure --set backend-name=prodback prod-demo-two cnab-terraform-demo:0.1.0
 ```
 
 ## Uninstall instance
